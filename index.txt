@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ʜᴀɪʟᴇʏ海莉代購/選品|嚴選美妝、保養、香水、服飾、零食等各式好物|不定期飛各地代購</title>
+    <meta name="description" contant="ʜᴀɪʟᴇʏ海莉代購/選品|嚴選美妝、保養、香水、服飾、零食等各式好物|不定期飛各地代購|Hailey親自實測推薦的愛用好物|商品都是Hailey親自挑選 用心把關品質|">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #fafafa;
+            color: #010101;
+            scroll-behavior: smooth;
+        }
+        .product-card {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .category-link {
+            position: relative;
+            padding-bottom: 2px;
+        }
+        .category-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: #010101;
+            transition: width 0.3s ease;
+        }
+        .category-link:hover::after {
+            width: 100%;
+        }
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            height: 60vh;
+        }
+        .carousel-slide {
+            display: none;
+            height: 100%;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            animation: fadeImg 1.5s;
+            cursor: pointer;
+        }
+        @keyframes fadeImg {
+            from { opacity: 0.4 } 
+            to { opacity: 1 }
+        }
+        .search-input {
+            width: 0;
+            transition: width 0.3s ease, padding 0.3s ease;
+            overflow: hidden;
+        }
+        .search-container:hover .search-input, .search-input:focus {
+            width: 150px;
+            padding: 0 8px;
+        }
+        .modal-overlay {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            box-shadow: 0 10px 50px rgba(0,0,0,0.05);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .line-button {
+            background-color: #010101;
+            color: #fafafa;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .line-button:hover {
+            opacity: 0.8;
+            letter-spacing: 0.1em;
+        }
+        .brand-logo-nav {
+            height: 32px;
+            width: auto;
+            object-fit: contain;
+        }
+        .brand-logo-intro {
+            width: 150px;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 24px;
+            border-radius: 12px;
+        }
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 12px 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background-color: transparent;
+            width: 100%;
+        }
+        .social-btn:hover {
+            border-color: #010101;
+            background-color: #f3f4f6;
+            transform: translateY(-2px);
+        }
+        .notice-section {
+            background-color: #fff;
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .product-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            padding: 4px 10px;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #010101;
+            z-index: 10;
+            border-radius: 2px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        .whitespace-pre-line {
+            white-space: pre-line;
+        }
+        .promo-tag {
+            background-color: #010101;
+            color: #fff;
+            padding: 2px 8px;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            margin-right: 8px;
+        }
+        .flash-badge {
+            background-color: #e11d48;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 導覽列 -->
+    <nav class="fixed top-0 w-full z-50 bg-[#fafafa]/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="filterCategory('all')">
+                <a href="#">
+                    <img src="https://i.ibb.co/YFZbDhzh/HAILEY-Logo-1.jpg" alt="HAILEY海莉代購Logo" class="brand-logo-nav">
+                </a>
+                <h1 class="text-lg font-bold tracking-tighter">ʜᴀɪʟᴇʏ海莉代購/選品</h1>
+            </div>
+            <div class="hidden lg:flex space-x-8 text-sm tracking-widest uppercase">
+                <button onclick="filterCategory('all')" class="category-link font-medium">所有商品</button>
+                <button onclick="filterCategory('美妝')" class="category-link">美妝</button>
+                <button onclick="filterCategory('保養')" class="category-link">保養</button>
+                <button onclick="filterCategory('衣服')" class="category-link">衣服</button>
+                <button onclick="filterCategory('鞋子')" class="category-link">鞋子</button>
+                <button onclick="filterCategory('配件')" class="category-link">配件</button>
+                <button onclick="filterCategory('香水')" class="category-link">香水</button>
+                <button onclick="filterCategory('零食')" class="category-link">零食</button>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="search-container flex items-center border-b border-transparent focus-within:border-black py-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="cursor-pointer"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="search-input" placeholder="搜尋選品..." class="search-input bg-transparent text-sm focus:outline-none placeholder:text-gray-300">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 輪播圖 -->
+    <section class="pt-16">
+        <div class="carousel-container">
+            <!-- 第一張：連結到優惠商品 -->
+            <div class="carousel-slide flex items-center justify-center text-white relative" 
+                 onclick="scrollToPromo()"
+                 style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://i.ibb.co/5W1G19Gz/image.png')">
+                <div class="text-center z-10 px-6">
+                    <h2 class="text-4xl md:text-5xl font-light tracking-[0.3em] mb-4">SPECIAL OFFERS</h2>
+                    <p class="text-sm tracking-[0.2em] font-light underline underline-offset-8">查看所有限時優惠商品</p>
+                </div>
+            </div>
+            <!-- 第二張：連結到鞋子 -->
+            <div class="carousel-slide flex items-center justify-center text-white relative" 
+                 onclick="filterCategory('鞋子')"
+                 style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://i.ibb.co/bgzN3mS9/1.png')">
+                <div class="text-center z-10 px-6">
+                    <h2 class="text-4xl md:text-5xl font-light tracking-[0.3em] mb-4">MUST-HAVE SHOE PICKS</h2>
+                    <p class="text-sm tracking-[0.2em] font-light underline underline-offset-8">精選必入鞋款</p>
+                </div>
+            </div>
+            <!-- 第三張：連結到香水 -->
+            <div class="carousel-slide flex items-center justify-center text-white relative" 
+                 onclick="filterCategory('香水')"
+                 style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://i.ibb.co/hRb3zGVW/2.png')">
+                <div class="text-center z-10 px-6">
+                    <h2 class="text-4xl md:text-5xl font-light tracking-[0.3em] mb-4">SIGNATURE SCENT</h2>
+                    <p class="text-sm tracking-[0.2em] font-light underline underline-offset-8">尋找屬於你的命定香氛</p>
+                </div>
+            </div>
+            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2">
+                <div class="dot w-2 h-2 rounded-full bg-white opacity-50 cursor-pointer" onclick="setSlide(0)"></div>
+                <div class="dot w-2 h-2 rounded-full bg-white opacity-50 cursor-pointer" onclick="setSlide(1)"></div>
+                <div class="dot w-2 h-2 rounded-full bg-white opacity-50 cursor-pointer" onclick="setSlide(2)"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 購買須知區塊 -->
+    <section class="notice-section py-16 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex flex-col items-center text-center mb-16">
+                <img src="https://i.ibb.co/YFZbDhzh/HAILEY-Logo-1.jpg" alt="HAILEY海莉代購Logo" class="brand-logo-intro shadow-sm">
+                <h3 class="text-xl font-medium tracking-[0.2em] mb-6">哈囉👋🏻 我是ʜᴀɪʟᴇʏ海莉代購/選品的闆娘Hailey</h3>
+                <div class="space-y-2 text-sm text-gray-600 tracking-widest leading-relaxed">
+                    <p>嚴選美妝、保養、香水、服飾、零食等各式好物✨</p>
+                    <p>不定期飛各地代購✈️🌍</p>
+                    <p>代購商品都是Hailey親自挑選 用心把關品質❣️</p>
+                    <p>選品也是Hailey親自實測推薦的愛用好物❣️</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="space-y-8">
+                    <div>
+                        <h4 class="flex items-center text-sm font-bold tracking-widest mb-3 uppercase">
+                            <span class="w-8 h-[1px] bg-black mr-3"></span>
+                            📌 下單方式
+                        </h4>
+                        <p class="text-sm text-gray-500 pl-11 tracking-wide">請私訊官方LINE下單。</p>
+                    </div>
+
+                    <div>
+                        <h4 class="flex items-center text-sm font-bold tracking-widest mb-3 uppercase">
+                            <span class="w-8 h-[1px] bg-black mr-3"></span>
+                            📌 付款方式 & 訂單成立
+                        </h4>
+                        <div class="text-sm text-gray-500 pl-11 space-y-2 tracking-wide">
+                            <p>僅提供匯款，私訊官方帳號下單後會提供銀行帳號，完成匯款後，麻煩提供帳號後五碼或轉帳截圖畫面。</p>
+                            <p class="text-red-800/70">⚠️ 店到店下單會先收商品全額款項，面交則會收商品一半款項。</p>
+                            <p class="text-red-800/70">⚠️ 匯款完成訂單才正式成立。</p>
+                            <p class="text-red-800/70">⚠️ 訂單成立後禁止更改或取消商品。棄單一律以黑名單處理❌</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="flex items-center text-sm font-bold tracking-widest mb-3 uppercase">
+                            <span class="w-8 h-[1px] bg-black mr-3"></span>
+                            📌 寄送方式及運費
+                        </h4>
+                        <p class="text-sm text-gray-500 pl-11 tracking-wide">目前僅提供面交（限桃園區）、7-11店到店、全家店到店，店到店運費皆為60元，面交不收取運費。</p>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <div>
+                        <h4 class="flex items-center text-sm font-bold tracking-widest mb-3 uppercase">
+                            <span class="w-8 h-[1px] bg-black mr-3"></span>
+                            📌 出貨時間
+                        </h4>
+                        <div class="text-sm text-gray-500 pl-11 space-y-1 tracking-wide">
+                            <p>代購商品：Hailey回國後5天內會出貨。</p>
+                            <p>現貨7天內出貨，預購15-30天出貨。</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="flex items-center text-sm font-bold tracking-widest mb-3 uppercase">
+                            <span class="w-8 h-[1px] bg-black mr-3"></span>
+                            📌 退換貨機制
+                        </h4>
+                        <div class="text-sm text-gray-500 pl-11 space-y-3 tracking-wide leading-relaxed">
+                            <p>包裹取件後3天內提供：<br><span class="font-medium">破碎照片、開箱影片、包裹單號</span></p>
+                            <p>商品有重大瑕疵、破瓶、外包裝嚴重破損，我們將提供退換貨。</p>
+                            <p class="bg-gray-50 p-3 italic text-[13px]">運送過程外盒難免會有凹痕，均會加強包裝，包裹都會包好包滿請各位放心👏🏻</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 商品列表 -->
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        
+        <!-- 限時優惠專區 -->
+        <div id="promo-section" class="mb-24">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-12">
+                <h3 class="text-xl md:text-2xl font-light tracking-widest uppercase flex items-center">
+                    <span class="promo-tag">LIMITED</span>限時優惠中！！！
+                </h3>
+                <p class="text-[10px] text-gray-400 tracking-[0.2em]">限定專屬優惠商品</p>
+            </div>
+            <div id="promo-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 gap-y-12"></div>
+        </div>
+
+        <div class="mb-12">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                <h3 id="category-title" class="text-xl md:text-2xl font-light tracking-widest uppercase">所有商品</h3>
+                <p id="product-results-count" class="text-[10px] text-gray-400 tracking-[0.2em]"></p>
+            </div>
+            <div class="lg:hidden flex space-x-6 overflow-x-auto w-full no-scrollbar pt-6 pb-2 text-xs tracking-[0.2em] uppercase font-light">
+                <button onclick="filterCategory('all')" class="whitespace-nowrap">全部商品</button>
+                <button onclick="filterCategory('美妝')" class="whitespace-nowrap">美妝</button>
+                <button onclick="filterCategory('保養')" class="whitespace-nowrap">保養</button>
+                <button onclick="filterCategory('衣服')" class="whitespace-nowrap">衣服</button>
+                <button onclick="filterCategory('鞋子')" class="whitespace-nowrap">鞋子</button>
+                <button onclick="filterCategory('配件')" class="whitespace-nowrap">配件</button>
+                <button onclick="filterCategory('香水')" class="whitespace-nowrap">香水</button>
+                <button onclick="filterCategory('零食')" class="whitespace-nowrap">零食</button>
+            </div>
+        </div>
+        
+        <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 gap-y-12 min-h-[400px]"></div>
+        
+        <div id="no-products" class="hidden text-center py-20">
+            <p class="text-gray-400 tracking-widest">找不到相符的商品</p>
+            <button onclick="resetFilters()" class="mt-4 text-xs underline underline-offset-4 tracking-widest">顯示所有商品</button>
+        </div>
+    </main>
+
+    <!-- 詳情彈窗 -->
+    <div id="detail-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 modal-overlay" onclick="closeModal()"></div>
+        <div class="modal-content relative bg-white w-full max-w-4xl flex flex-col md:flex-row shadow-2xl rounded-sm">
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 p-2 hover:rotate-90 transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div class="w-full md:w-1/2 bg-gray-50 aspect-[3/4]">
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                <p id="modal-category" class="text-[10px] text-gray-400 tracking-[0.2em] uppercase mb-2"></p>
+                <h2 id="modal-name" class="text-2xl font-light tracking-widest mb-4"></h2>
+                <div id="modal-price-container" class="mb-8 flex items-baseline">
+                    <span id="modal-price" class="text-lg font-medium mr-2"></span>
+                    <span id="modal-original-price" class="text-sm text-gray-400 line-through"></span>
+                </div>
+                <div class="border-t pt-8 space-y-6 text-sm text-gray-500 leading-relaxed tracking-wide">
+                    <div>
+                        <h4 class="text-[#010101] mb-2 font-medium">商品描述</h4>
+                        <div id="modal-desc" class="whitespace-pre-line"></div>
+                    </div>
+                    <div>
+                        <h4 class="text-[#010101] mb-2 font-medium">購買須知</h4>
+                        <ul class="list-disc list-inside space-y-1 text-xs">
+                            <li>預購商品需等待 15-30 個工作天</li>
+                            <li>商品有重大瑕疵、破瓶、外包裝嚴重破損，我們將提供退換貨。</li>
+                            <li>下單或有任何問題，請私訊官方LINE(@527wiirs)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-10">
+                    <a href="https://line.me/R/ti/p/@527wiirs?from=page&searchId=527wiirs" target="_blank" class="line-button w-full py-4 text-sm tracking-[0.2em] font-medium uppercase">
+                        私訊官方 LINE 購買
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 頁尾 -->
+    <footer class="bg-white border-t border-gray-100 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h4 class="text-lg font-bold tracking-[0.4em] uppercase mb-2">Connect With Us</h4>
+                <div class="h-[1px] w-12 bg-black mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+                <a href="https://line.me/R/ti/p/@527wiirs?from=page&searchId=527wiirs" target="_blank" class="social-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <div class="text-left">
+                        <p class="text-[10px] text-gray-400 tracking-widest uppercase">LINE Service</p>
+                        <p class="text-xs tracking-widest">購買及詢問➡️官方LINE</p>
+                    </div>
+                </a>
+                <a href="https://line.ti/g2/cYaaix1u5Kd4spQaE_Tvg_azcxKlGpxcE783LQ?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="social-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <div class="text-left">
+                        <p class="text-[10px] text-gray-400 tracking-widest uppercase">Community</p>
+                        <p class="text-xs tracking-widest">即時資訊及新品➡️LINE社群</p>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/hailey_select_?igsh=MXJ6Nzd1aXBrMzFu&utm_source=qr" target="_blank" class="social-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    <div class="text-left">
+                        <p class="text-[10px] text-gray-400 tracking-widest uppercase">Instagram</p>
+                        <p class="text-xs tracking-widest">關注我們➡️Instagram</p>
+                    </div>
+                </a>
+            </div>
+            <div class="border-t border-gray-50 pt-8 text-center">
+                <p class="text-[10px] text-gray-400 tracking-[0.3em]">© ʜᴀɪʟᴇʏ SELECT SHOP. ALL RIGHTS RESERVED.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. 限時優惠商品資料
+        const promoProducts = [
+            { 
+                id: 101, 
+                name: "【限時特價】PRADA 顛覆綠護手霜(50ml)", 
+                price: 1260, 
+                originalPrice: 2100, 
+                category: "保養", 
+                img: "https://i.ibb.co/ychw2bhP/PRADA.png", 
+                desc: `第一支顛覆融入高訂香氛的精品護手霜線性香調突破高訂香氛前中後調界線，展現高訂氛圍感✨ 
+
+                ▪️添加由乳木果油、鳶尾萃取、 菸鹼醯胺與生物素所打造的煥活複合物，能有效提升肌膚保濕度與修護力並深入修護極度脆弱指緣，滋潤卻不黏膩負擔🌿 
+                ▪️乳霜轉精華質地輕盈不厚重，不論膚質立即吸收，達到滋養修護、柔嫩細滑的舒適感受 
+                ▪️木質花香調 
+                 -鳶尾/意大利柑橘/突尼西亞橙花/白松香/雪松木/安息香/焚`, 
+                isPromo: true 
+            },
+            { 
+                id: 102, 
+                name: "【限時優惠】Jo Malone 藍風鈴香水(100ml)", 
+                price: 2850, 
+                originalPrice: 5850, 
+                category: "香水", 
+                img: "https://i.ibb.co/VYWGvg0m/Jo-Malone.png", 
+                desc: `寶藍色花蕾在不可思議的遍野花叢中綻放出閃亮甜美而又充滿活力的清新氣息，瀰漫著藍風鈴滿載初露的微妙香甜，輕載鈴蘭與野薔薇，柿子的甘甜扭轉常規感觀🌹🎐
+                
+                ▪️香調
+                前調- 藍風鈴、丁香、橙花、檸檬
+                中調- 柿子、 野薔薇、茉莉、鈴蘭果香
+                後調- 白麝香、琥珀`, 
+                isPromo: true 
+            },
+            { 
+                id: 103, 
+                name: "【超低價格】PRADA 三角標誌訂製收納皮革化妝包", 
+                price: 599,
+                 originalPrice: 1280,  
+                category: "配件", 
+                img: "https://i.ibb.co/XfvTCJnB/prada-bag.png", 
+                desc: `在PRADA Beauty美妝旗艦店需購買任一款香水才贈送的小禮物，現在也能輕鬆入手啦！
+
+                幾乎可以放入日常外出會用到的彩妝品，三角造型讓連眼線筆都能輕鬆放入，還能放喜歡的香水，輕巧但堅固的質地，經典的三角造型一拿出來就令人心動不已🎀💗
+                ▪️尺寸：長約23cm、高約5.5cm`, 
+                isPromo: true 
+            },
+            { 
+                id: 104, 
+                name: "【超值組合】Dior 黑色帆布化妝包", 
+                price: 599, 
+                originalPrice: 1350, 
+                category: "配件", 
+                img: "https://i.ibb.co/XZMYqsZX/dior-bag.png", 
+                desc: `LOGO是刺繡的 非常精緻 黑色也完全不怕弄髒🖤
+                大容量 日常使用的化妝品都能輕鬆放入！                
+                ▪️尺寸：16cm x 10cm x 8cm`, 
+                isPromo: true 
+            },
+            { 
+                id: 105, 
+                name: "【外國限定款】adidas Originals Bermuda(Glow Pink 蜜桃粉) ", 
+                price: 1499, 
+                originalPrice: 2580, 
+                category: "配件", 
+                img: "https://i.ibb.co/j9pdrtX5/adidas-Originals-Bermuda.png", 
+                desc: `小紅書爆款‼️ 穿搭博主必備 麂皮鞋面很有質感🎀
+                                
+                ▪️尺寸：35.5～40`, 
+                isPromo: true 
+            }
+        ];
+
+        // 2. 所有商品資料
+        const products = [
+            { 
+                id: 1, 
+                name: "adidas Originals 羊羔毛雲朵包(深咖/米白)", 
+                price: 1790, 
+                originalPrice: 2200, 
+                category: "配件", 
+                img: "https://i.ibb.co/s920V7pQ/Adidas-Originals.png", 
+                desc: `冬天怎麼能沒有一咖毛絨包？☁️ 這款真的冬天必收🫶內容物包含防塵袋。
+                以溫暖棕色為主調，寬大輪廓、低調率性，是毛絨配件裡少見融合運動 × 潮流的選擇🤎
+                奶白毛絨的細膩觸感，讓造型瞬間變得更柔軟，不只好看，更好搭，是冬日質感穿搭的最佳配件👜
+                
+                ▪️主隔層採雙拉鍊開合設計，內部另有拉鍊小袋，方便整理隨身物品；肩帶可調整長度，既可肩背也適合斜背，適用於日常通勤或休閒出門🧚🏻‍♀
+                ▪️採用 100% 再生聚酯纖維製成，外層觸感柔軟如毛絨般溫暖
+                ▪️包體尺寸約 24 cm × 40 cm × 16 cm、容量約14.6L
+                ▪️顏色：深咖/米白` 
+            },
+            { 
+                id: 2, 
+                name: "adidas Originals 三葉草黑色尼龍雲朵包(M號/L號)", 
+                price: 1940, 
+                maxPrice: 2000, 
+                originalPrice: 2250, 
+                maxOriginalPrice: 2400, 
+                category: "配件", 
+                img: "https://i.ibb.co/5Wq9vR8J/Adidas-Originals-JP0145.png", 
+                desc: `軟軟綿綿的蓬鬆外型 真的像把小雲朵背在身上☁️🖤 
+                輕盈材質＋立體份量感 看起來可愛、背起來超舒服～
+
+                ▪️可調節肩帶讓手提、肩背、斜背都能自然切換
+                ▪️尼龍及再生聚酯纖維為主要材質，以柔軟蓬鬆的立體輪廓打造獨特存在感，整體外型像極輕盈雲朵般的豐厚質地☁️
+                ▪️尺寸
+                    M號- 34CM × 24CM × 14CM
+                    L號- 48CM × 29CM × 17CM
+                    
+                ▪️價格
+                    M號：1940 (原價2250)
+                    L號：2000 (原價2400)`,
+                hasVariants: true , 
+            },
+            { 
+                id: 3, 
+                name: "Charles Keith hobo托特包(黑色/米色)", 
+                price: 3300, 
+                originalPrice: 3980, 
+                category: "配件", 
+                img: "https://i.ibb.co/CS9x2fB/Charles-Keith-hobo.png", 
+                desc: `小CK兼具大容量及時尚感的包包來啦😻 
+                米色搭配麂皮材質 秋冬氛圍感直接拉滿🍂 
+                黑色百搭 俐落又有氣場 輕鬆融入你的日常穿搭🖤
+
+                ▪️採用柔軟麂皮搭配細緻皮革，手感舒適、質感滿分，輕鬆駕馭各種穿搭
+                ▪️大容量，輕鬆收納筆電、化妝包與日常必備小物，外出不再手忙腳亂
+                ▪️磁扣閉合，肩帶為可調式，長約37-72cm，可肩揹、斜揹，包體尺寸約37.5cm × 9cm × 31cm
+                ▪️顏色：黑色/米色` 
+            },
+            { 
+                id: 4, 
+                name: "adidas Originals Samba OG", 
+                price: 2490, 
+                originalPrice: 3490, 
+                category: "鞋子", 
+                img: "https://i.ibb.co/Lz1FqHzq/Adidas-Originals-Samba-OG.png", 
+                desc: `這雙是Samba OG系列裡的「超高性價比之王」！延續Samba經典復古設計，鞋型俐落、百搭所有穿搭。
+                官網原價直接現折1000，CP值直接拉滿！
+
+                ▪️尺寸：35.5～42` 
+            },
+            { 
+                id: 5, 
+                name: "adidas Originals Stadt", 
+                price: 1750, 
+                originalPrice: 2950, 
+                category: "鞋子", 
+                img: "https://i.ibb.co/7xNybDBH/adidas-Originals-Stadt.png", 
+                desc: `價格超甜😻想入手的不要錯過了‼️
+                整體造型簡潔俐落，結合街頭與復古美學，完美詮釋adidas Originals一貫的經典精神
+
+                ▪️鞋面選用細緻麂皮材質，呈現柔和的奶油芝麻與米灰色調，搭配焦糖色橡膠外底，展現濃厚的70年代復古氛圍。
+                ▪️鞋舌與後跟採用黑色皮革拼接，增添層次感並提升耐用度。
+                ▪️內裡使用柔軟織布材質，穿著舒適透氣，橡膠外底具良好抓地力，適合日常行走與城市穿搭。
+                ▪️尺寸：35.5～42.5` 
+            },
+            { 
+                id: 6, 
+                name: "adidas VL Court 3.0", 
+                price: 1730, 
+                originalPrice: 2300, 
+                category: "鞋子", 
+                img: "https://i.ibb.co/39x0BRcY/Adidas-VL-Court-3-0.png", 
+                desc: `平價小白鞋 學生黨必收‼️   
+                乾淨俐落的設計，穿去上課、通勤或日常出街都百搭🤍
+                價位親民卻有大牌質感，學生黨、日常通勤族必收
+
+                ▪️尺寸：35.5～40` 
+            },
+            { 
+                id: 7, 
+                name: "Gentle Monster By 01(黑色)", 
+                price: 6620, 
+                originalPrice: 8700, 
+                category: "配件", 
+                img: "https://i.ibb.co/BV4BMdG1/Gentle-Monster-BY01.png", 
+                desc: `極簡百搭的人氣款，最經典的入門熱賣款之一，俐落的矩形框架設計，乾淨又有型🤩` 
+            },
+            { 
+                id: 8, 
+                name: "Gentle Monster Rococo 01(黑色)", 
+                price: 7900, 
+                originalPrice: 10540, 
+                category: "配件", 
+                img: "https://i.ibb.co/JWnk7XZm/Gentle-Monster-Rococo-01.png", 
+                desc: `黑色方框搭配品牌標誌性設計，戴上立刻酷感十足😎` 
+            },
+            { 
+                id: 9, 
+                name: "Gentle Monster Duns 01(黑色)", 
+                price: 7800, 
+                originalPrice: 10600, 
+                category: "配件", 
+                img: "https://i.ibb.co/cjQ2Fyn/Gentle-Monster-Duns-01.png", 
+                desc: `超火的韓星同款，大框黑色設計+俐落線條，低調卻很有存在感，戴上就是韓劇女主角氛圍🫶🏻` 
+            },
+            { 
+                id: 10, 
+                name: "Gentle Monster OJO 01(黑色)", 
+                price: 7800, 
+                originalPrice: 9900, 
+                category: "配件", 
+                img: "https://i.ibb.co/8DsdvCNm/Gentle-Monster-OJO-01.png", 
+                desc: `俐落的黑色框型+微微貓眼線條，百搭又不挑臉型，日常、通勤、出遊都能輕鬆駕馭😻` 
+            },
+            { 
+                id: 11, 
+                name: "Maison Margiela REPLICA淡香水系列- Lazy Sunday Morning(慵懶週末)", 
+                price: 2400, 
+                maxPrice: 4800, 
+                originalPrice: 2800,
+                maxOriginalPrice: 5600, 
+                category: "香水", 
+                img: "https://i.ibb.co/3mH8m67S/Lazy-Sunday-Morning.png", 
+                desc: `清晨，陽光透過窗簾輕柔地灑落在肌膚上，絲滑的肌膚包裹在純白的床單裡，空氣中散發著剛洗過床單的清新，慵懶放鬆地享受著週末的開始☁️🤍
+
+                ▪️花香麝香調
+                - 前調：鈴蘭/黃葵籽
+                - 中調：鳶尾花/玫瑰花瓣/橙花
+                - 後調：印尼廣藿香/白木/白麝香
+
+                ▪️價格
+                30ml：2400 (原價2800)
+                100ml：4800 (原價5600)`, 
+                hasVariants: true 
+            },
+            { 
+                id: 12, 
+                name: "Maison Margiela REPLICA淡香水系列- When the Rain Stops(雨後初晴)", 
+                price: 2400, 
+                maxPrice: 4800, 
+                originalPrice: 2800, 
+                maxOriginalPrice: 5600, 
+                category: "香水", 
+                img: "https://i.ibb.co/Mk45WKZN/When-the-Rain-Stops.png", 
+                desc: `一場春季驟雨過後，推開窗、映入眼簾的是一道彩虹高懸天際，晶瑩剔透的雨滴附著在鮮花和松針上，明媚陽光灑在潔淨的大地上，帶來歡愉與對美好明天的憧憬☀️🌈
+                
+                ▪️水生木質調
+                - 前調：香檸檬/綠植香調/粉紅胡椒    
+                - 中調：水生調/伊斯帕爾塔玫瑰/大花茉莉                
+                - 後調：松針油/峇厘島廣藿香/苔蘚調
+
+                ▪️價格
+                30ml：2400 (原價2800)
+                100ml：4800 (原價5600)`, 
+                hasVariants: true 
+            },
+            { 
+                id: 13, 
+                name: "Maison Margiela REPLICA淡香水系列- Springtime in a Park(春日公園)", 
+                price: 2400, 
+                maxPrice: 4800, 
+                originalPrice: 2800, 
+                maxOriginalPrice: 5600, 
+                category: "香水", 
+                img: "https://i.ibb.co/TBsPk7mv/Springtime-in-a-Park.png", 
+                desc: `漫步在公園中，陽光輕柔灑在盛開的繁花上，這個季節充滿生氣，籠罩著微妙且令人陶醉的花香氛圍，讓愜意的午後充分享受春天的醒目和生動🦩🌸
+                
+                
+                ▪️花香果香調
+                - 前調：香梨/香檸檬/黑醋栗
+                - 中調：鈴蘭/茉莉花/玫瑰
+                - 後調：麝香/香草/龍涎香醚
+
+                ▪️價格
+                30ml：2400 (原價2800)
+                100ml：4800 (原價5600)`, 
+                hasVariants: true 
+            },
+            { 
+                id: 14, 
+                name: "Maison Margiela REPLICA淡香水系列- By the Fireplace(溫暖壁爐)", 
+                price: 2400, 
+                maxPrice: 4800, 
+                originalPrice: 2800, 
+                maxOriginalPrice: 5600, 
+                category: "香水", 
+                img: "https://i.ibb.co/hFqbbVwG/By-the-Fireplace.png", 
+                desc: `壁爐內的火焰劈啪作響、窗戶上結著霜，空氣中伴隨著濃厚的木頭香氣，帶來冬日中溫暖的安定感🌰🪵
+                
+                ▪️琥珀木質調
+                - 前調：粉紅胡椒/橙花花辦/丁香精油
+                - 中調：栗子/癒創木/杜松油
+                - 後調：香草/秘魯香膏/開司米酮
+
+                ▪️價格
+                30ml：2400 (原價2800)
+                100ml：4800 (原價5600)`, 
+                hasVariants: true 
+            },
+            { 
+                id: 15, 
+                name: "Maison Margiela REPLICA淡香水系列- Flower Market(花卉市場)", 
+                price: 2400, 
+                maxPrice: 4800, 
+                originalPrice: 2800, 
+                maxOriginalPrice: 5600, 
+                category: "香水", 
+                img: "https://i.ibb.co/8DZdkT44/Flower-Market.png", 
+                desc: `花卉市場中懸掛著露水的鮮活花束，花瓣濕潤，莖葉輕折，腳下踩著點點水痕，手中拎著繁花滿束，沉浸在花香環抱的世界，感受陣陣清甜🌷🌺
+                        
+                ▪️綠意花香調
+                - 前調：綠葉/小蒼蘭/小花茉莉
+                - 中調：埃及茉莉/晚香玉/格拉斯玫瑰
+                - 後調：桃/雪松/橡苔
+
+                ▪️價格
+                30ml：2400 (原價2800)
+                100ml：4800 (原價5600)`, 
+                hasVariants: true 
+            },
+            { 
+                id: 16, 
+                name: "Maison Margiela REPLICA淡香水系列- Beach Walk(沙灘漫步)", 
+                price: 2400, 
+                maxPrice: 4800, 
+                originalPrice: 2800, 
+                maxOriginalPrice: 5600, 
+                category: "香水", 
+                img: "https://i.ibb.co/dsTrJyGd/Beach-Walk.png", 
+                desc: `赤腳漫步於沙灘，感受著夏日暖陽、肌膚上沾著細沙、海鹽與防曬霜的氣味，透過歡愉的微風，吹掉了煩惱、丟掉了煩躁，擁抱身心靈的放鬆🏝️🥥
+                                
+                ▪️花香調
+                - 前調：香檸檬/粉紅胡椒/檸檬
+                - 中調：西瓜酮/依蘭/椰奶
+                - 後調：麝香/雪松/安息香
+
+                ▪️價格
+                30ml：2400 (原價2800)
+                100ml：4800 (原價5600)`, 
+                hasVariants: true 
+            },
+            { 
+                id: 17, 
+                name: "Maison Margiela REPLICA淡香水系列- Sailing Day(航行物語)", 
+                price: 2400, 
+                maxPrice: 4800, 
+                originalPrice: 2800, 
+                maxOriginalPrice: 5600, 
+                category: "香水", 
+                img: "https://i.ibb.co/TBX7MVC2/Sailing-Day.png", 
+                desc: `當帆船在湛藍海面自由翱翔，潛入炎炎夏日的湛藍海水之中。波光粼粼的感官刺激，宛若一場對大海靈魂的探索，帶來無比的振奮與活力⛵️🌊
+                    
+                ▪️水生木質調
+                - 前調：水生調/醛/杜松
+                - 中調：芫荽/鳶尾花原精/玫瑰
+                - 後調：紅海藻/龍涎香/琥珀木
+
+                ▪️價格
+                30ml：2400 (原價2800)
+                100ml：4800 (原價5600)`, 
+                hasVariants: true 
+            },
+            { 
+                id: 18, 
+                name: "Maison Margiela REPLICA淡香水系列- Under the Lemon Tree(在檸檬樹下)", 
+                price: 2400,
+                maxPrice: 4800, 
+                originalPrice: 2800, 
+                maxOriginalPrice: 5600,
+                category: "香水", 
+                img: "https://i.ibb.co/CKkKRmHZ/Under-the-Lemon-Tree.png", 
+                desc: `一籃檸檬的明亮清香，宛如一幅自由的畫布，詮釋樹蔭之下的清新。徜徉於鄉野陽光間，倚靠著檸檬樹，入夢於樹影和地中海煦風之間，感受著檸檬的清新香氣🍋🌲
+                
+                ▪️柑橘花香調
+                - 前調：青檸/苦橙葉/小豆蔻
+                - 中調：芫荽/馬黛茶/綠茶
+                - 後調：雪松/玫瑰/白麝香
+
+                ▪️價格
+                30ml：2400 (原價2800)
+                100ml：4800 (原價5600)`, 
+                hasVariants: true 
+            },
+            { 
+                id: 19, 
+                name: "Maison Margiela REPLICA淡香水系列- Afternoon Delight(閒情午後)", 
+                price: 2400, 
+                maxPrice: 4800, 
+                originalPrice: 2800, 
+                maxOriginalPrice: 5600, 
+                category: "香水", 
+                img: "https://i.ibb.co/1YtdW5d2/Afternoon-Delight.png", 
+                desc: `一家咖啡廳靜靜佇立，冬日的陽光下瀰漫著溫暖的瑪德蓮氣息，時間彷彿都慢了下來。輕咬一口，甜蜜在舌尖綻放，輕輕帶你回到過往的回憶中🥧🍪
+                
+                ▪️美食琥珀調
+                - 前調：杏仁/白芷根
+                - 中調：瑪德蓮蛋糕和弦/胡蘿蔔/黃葵
+                - 後調：香草/麝香/檀香
+
+                ▪️價格
+                30ml：2400 (原價2800)
+                100ml：4800 (原價5600)`, 
+                hasVariants: true 
+            },
+            { 
+                id: 20, 
+                name: "Maison Margiela REPLICA淡香水系列- Jazz Club(爵士酒廊)", 
+                price: 2400, 
+                maxPrice: 4800, 
+                originalPrice: 2800,
+                maxOriginalPrice: 5600, 
+                category: "香水", 
+                img: "https://i.ibb.co/tMqf92Jb/Jazz-Club.png", 
+                desc: `踏入私人爵士俱樂部，深陷扶手沙發之中，伴隨著藍調的節奏，鬆弛的享受著香醇的蘭姆酒與雪茄的氤氳🚬🥃
+                
+                ▪️東方木質調
+                - 前調：粉紅胡椒/橙花/檸檬
+                - 中調：蘭姆酒/鼠尾草
+                - 後調：煙草/香脂/香草豆    
+
+                ▪️價格
+                30ml：2400 (原價2800)
+                100ml：4800 (原價5600)`, 
+                hasVariants: true 
+            },
+            { 
+                id: 21, 
+                name: "Vivienne Westwood Lucrece Bracelet  迴紋針珍珠手鍊(銀色)", 
+                price: 8200, 
+                originalPrice: 9500, 
+                category: "配件", 
+                img: "https://i.ibb.co/JF3SG3Ps/Vivienne-Westwood-Lucrece-Bracelet.png", 
+                desc: `將優雅與叛逆做融合，珍珠呈現溫潤光澤，吊墜與別針細節則為設計注入搖滾氣息✨
+                整條手鍊無論近看或遠觀，都散發出Vivienne Westwood一貫的華麗、玩味與張力🪐` 
+            },
+        ];
+
+        let slideIndex = 0;
+        let currentCategory = 'all';
+        let slideTimer;
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("carousel-slide");
+            let dots = document.getElementsByClassName("dot");
+            if (!slides.length) return;
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+                if(dots[i]) dots[i].classList.replace('opacity-100', 'opacity-50');
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}
+            slides[slideIndex-1].style.display = "flex";
+            if(dots[slideIndex-1]) dots[slideIndex-1].classList.replace('opacity-50', 'opacity-100');
+            slideTimer = setTimeout(showSlides, 5000); 
+        }
+
+        function setSlide(index) {
+            clearTimeout(slideTimer);
+            slideIndex = index;
+            let slides = document.getElementsByClassName("carousel-slide");
+            let dots = document.getElementsByClassName("dot");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+                dots[i].classList.replace('opacity-100', 'opacity-50');
+            }
+            slides[slideIndex].style.display = "flex";
+            dots[slideIndex].classList.replace('opacity-50', 'opacity-100');
+            slideTimer = setTimeout(showSlides, 5000);
+        }
+
+        // 跳轉至優惠專區
+        function scrollToPromo() {
+            const promoSection = document.getElementById('promo-section');
+            const navHeight = 80;
+            const elementPosition = promoSection.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+            window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+        }
+
+        function createProductCardHTML(p, index, isPromo = false) {
+            const priceText = p.hasVariants ? `NT$ ${p.price.toLocaleString()} 起` : `NT$ ${p.price.toLocaleString()}`;
+            const originalPriceText = p.hasVariants ? `NT$ ${p.originalPrice.toLocaleString()} 起` : `NT$ ${p.originalPrice.toLocaleString()}`;
+            
+            return `
+                <div class="product-card group animate-fade-in" style="animation-delay: ${index * 0.05}s" onclick="openModal(${p.id}, ${isPromo})">
+                    <div class="relative overflow-hidden bg-gray-100 aspect-[3/4] mb-4">
+                        <div class="product-tag">${p.category}</div>
+                        <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-xs tracking-[0.3em] text-white bg-black/20 px-4 py-2 backdrop-blur-sm">VIEW DETAILS</span>
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        ${isPromo ? `<span class="flash-badge">SALE</span>` : ''}
+                        <h4 class="text-sm tracking-wide font-light truncate">${p.name}</h4>
+                        <div class="flex items-center space-x-2">
+                            <p class="text-sm font-medium">${priceText}</p>
+                            <p class="text-[10px] text-gray-400 line-through">${originalPriceText}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPromoProducts() {
+            const promoGrid = document.getElementById('promo-grid');
+            if (!promoGrid) return;
+            promoGrid.innerHTML = promoProducts.map((p, i) => createProductCardHTML(p, i, true)).join('');
+        }
+
+        function renderProducts(filterItems = null) {
+            const grid = document.getElementById('product-grid');
+            const noProducts = document.getElementById('no-products');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            const displayItems = filterItems || (currentCategory === 'all' ? products : products.filter(p => p.category === currentCategory));
+            
+            const promoSection = document.getElementById('promo-section');
+            promoSection.classList.remove('hidden');
+
+            if (displayItems.length === 0) {
+                grid.classList.add('hidden');
+                noProducts.classList.remove('hidden');
+            } else {
+                grid.classList.remove('hidden');
+                noProducts.classList.add('hidden');
+                grid.innerHTML = displayItems.map((p, i) => createProductCardHTML(p, i, false)).join('');
+            }
+            document.getElementById('product-results-count').innerText = `共 ${displayItems.length} 個選品`;
+        }
+
+        function filterCategory(cat) {
+            currentCategory = cat;
+            const titleEl = document.getElementById('category-title');
+            if (titleEl) titleEl.innerText = cat === 'all' ? '所有商品' : cat;
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) searchInput.value = '';
+            renderProducts();
+            
+            const targetEl = document.getElementById('category-title');
+            if (targetEl) {
+                const navHeight = 80;
+                const elementPosition = targetEl.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+                window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+            }
+        }
+
+        function resetFilters() {
+            currentCategory = 'all';
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) searchInput.value = '';
+            filterCategory('all');
+        }
+
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase().trim();
+            if (term === '') { renderProducts(); return; }
+            const filtered = products.filter(p => p.name.toLowerCase().includes(term) || p.category.toLowerCase().includes(term));
+            const titleEl = document.getElementById('category-title');
+            if (titleEl) titleEl.innerText = `搜尋結果: "${term}"`;
+            renderProducts(filtered);
+        });
+
+        function openModal(id, isPromo) {
+            const source = isPromo ? promoProducts : products;
+            const product = source.find(p => p.id === id);
+            if (!product) return;
+
+            document.getElementById('modal-img').src = product.img;
+            document.getElementById('modal-category').innerText = product.category;
+            document.getElementById('modal-name').innerText = product.name;
+            
+            if (product.hasVariants) {
+                document.getElementById('modal-price').innerText = `NT$ ${product.price.toLocaleString()} - ${product.maxPrice.toLocaleString()}`;
+                document.getElementById('modal-original-price').innerText = `NT$ ${product.originalPrice.toLocaleString()} - ${product.maxOriginalPrice.toLocaleString()}`;
+            } else {
+                document.getElementById('modal-price').innerText = `NT$ ${product.price.toLocaleString()}`;
+                document.getElementById('modal-original-price').innerText = `NT$ ${product.originalPrice.toLocaleString()}`;
+            }
+
+            // --- 處理描述區塊的原價劃線邏輯 ---
+            let description = product.desc;
+            // 匹配格式如 (原價2250) 或 (原價 2250)，支援任意空格
+            const priceRegex = /\(原價\s*(\d+)\)/g;
+            description = description.replace(priceRegex, (match, price) => {
+                return `(<span class="line-through text-gray-400">原價 ${price}</span>)`;
+            });
+
+            document.getElementById('modal-desc').innerHTML = description;
+            document.getElementById('detail-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPromoProducts();
+            renderProducts();
+            showSlides();
+        });
+    </script>
+</body>
+</html>
